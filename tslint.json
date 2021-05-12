@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-config-prettier"
+  ],
+  "plugins": [
+    "prettier",
+    "react"
+  ],
+  "rulesDirectory": [
+    "tslint-plugin-prettier"
+  ],
+  "rules": {
+    "no-empty-function": "off",
+    "prettier": true,
+    "interface-name": false
+  }
+}

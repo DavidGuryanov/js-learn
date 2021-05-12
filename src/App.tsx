@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { ThemeProvider } from '@material-ui/core/styles'
+import { HomeScreen } from '../src/components/homeScreen'
+import Courses from './components/Courses'
+import Course from './components/Courses/Course'
+import Task from './components/Task/Task'
+import Login from './components/Login'
+import WithTopBar from './utils/HOCs/screenWrapper'
+import { Wrapper, Content } from './styles'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './utils/GolosText/Golos-Text_Regular.css'
+
+const theme = {
+  mainColor: '#333333',
+  textColor: 'green',
 }
 
-export default App;
+function App() {
+  // console.log(useSelector((state) => state))
+  return (
+    // <ThemeProvider theme={theme}>
+    <Wrapper>
+      <Router>
+        <Switch>
+          <Route path="/login" exact component={Login} />
+          {/* <Route path="/" exact component={HomeScreen} /> */}
+          <Route path="/" exact component={Login} />
+          <Route path="/courses" exact component={Courses} />
+          <Route path="/courses/:course" exact component={Course} />
+          <Route path="/courses/:course/:id" exact component={Task} />
+        </Switch>
+      </Router>
+    </Wrapper>
+    // </ThemeProvider>
+  )
+}
+
+export default App
