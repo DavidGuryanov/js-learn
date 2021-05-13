@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, useRef, useState, useEffect } from 'react'
 import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { interpretTheCode } from '../../utils/tests'
 import { tasksArray } from '../Courses/Course/data'
@@ -24,7 +24,6 @@ const Task = (props: any): JSX.Element => {
   // if (getParams) {
   //   const params = getParams
   // }
-  console.log(getParams.id)
 
   const history = useHistory()
   const location = useLocation()
@@ -60,6 +59,7 @@ const Task = (props: any): JSX.Element => {
     editorRef.current = editor
   }
 
+
   function showValue() {
     if (editorRef !== null) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -76,6 +76,16 @@ const Task = (props: any): JSX.Element => {
     }
     return false
   }
+  const [loading, setLoading] = useState(true)
+  const launchLoading = () => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
+  }
+  useEffect(() => {
+    setLoading(true)
+    launchLoading()
+  }, [params])
 
   return (
     <div>
@@ -86,8 +96,12 @@ const Task = (props: any): JSX.Element => {
       <br />
       {relevantData.type === 'task' && relevantData.code && (
         <>
+          {/* <button onClick={setLoading}>Test</button> */}
+          {loading ? null : (
+            <CodeEditor defaultCode={relevantData.code} onMount={handleEditorDidMount} />
+          )}
           <PreFormattedText>{relevantData.text}</PreFormattedText>
-          <CodeEditor defaultCode={relevantData.code} onMount={handleEditorDidMount} />
+          {/* <CodeEditor defaultCode={relevantData.code} onMount={handleEditorDidMount} /> */}
           <button type={'submit'} onClick={showValue}>
             Submit
           </button>
