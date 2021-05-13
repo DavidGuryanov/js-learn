@@ -59,7 +59,6 @@ const Task = (props: any): JSX.Element => {
     editorRef.current = editor
   }
 
-
   function showValue() {
     if (editorRef !== null) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
